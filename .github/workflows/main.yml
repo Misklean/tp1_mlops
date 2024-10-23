@@ -37,9 +37,10 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
       # Step 7: Deploy to Remote Server using sshpass
-      - name: Deploy to Remote Server
+      - name: Connect to Remote Server
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: sshpass -p $SSH_PASSWORD ssh ubuntu@20.86.55.5
-        run: docker pull flotigoulet/tp1_mlops:latest
-        run: docker run -t flotigoulet/tp1_mlops
+
+      - name: Deploy to Remote Server
+        run: docker pull flotigoulet/tp1_mlops:latest; docker run -t flotigoulet/tp1_mlops
