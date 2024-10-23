@@ -32,13 +32,11 @@ jobs:
       - name: Push Docker Image
         run: docker push flotigoulet/tp1_mlops:latest
 
-      # # Step 6: Deploy to Remote Server via SSH
-      # - name: Deploy to Remote Server
-      #   run: |
-      #     ssh -o StrictHostKeyChecking=no ubuntu@17.2.2.1 << 'EOF'
-      #       docker compose pull flotigoulet/tp1_mlops:tagname
-      #       docker compose down
-      #       docker compose up -d
-      #     EOF
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      # Step 6: Deploy to Remote Server via SSH
+      - name: Deploy to Remote Server
+        run: |
+          ssh ubuntu@20.61.171.129 << 'EOF'
+            docker compose pull flotigoulet/tp1_mlops:tagname
+            docker compose down
+            docker compose up -d
+          EOF
