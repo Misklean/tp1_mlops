@@ -32,11 +32,16 @@ jobs:
       - name: Push Docker Image
         run: docker push flotigoulet/tp1_mlops:latest
 
-      # Step 6: Deploy to Remote Server via SSH
+      # Step 6: Install sshpass
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      # Step 7: Deploy to Remote Server using sshpass
       - name: Deploy to Remote Server
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          ssh ubuntu@20.61.171.129 << 'EOF'
-            docker compose pull flotigoulet/tp1_mlops:tagname
-            docker compose down
-            docker compose up -d
+          sshpass -p $SSH_PASSWORD ssh ubuntu@20.86.55.5 << 'EOF'
+            docker pull flotigoulet/tp1_mlops:latest
+            docker run -t flotigoulet/tp1_mlops
           EOF
