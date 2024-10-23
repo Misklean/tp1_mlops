@@ -40,8 +40,6 @@ jobs:
       - name: Deploy to Remote Server
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-        run: |
-          sshpass -p $SSH_PASSWORD ssh ubuntu@20.86.55.5 << 'EOF'
-            docker pull flotigoulet/tp1_mlops:latest
-            docker run -t flotigoulet/tp1_mlops
-          EOF
+        run: sshpass -p $SSH_PASSWORD ssh ubuntu@20.86.55.5
+        run: docker pull flotigoulet/tp1_mlops:latest
+        run: docker run -t flotigoulet/tp1_mlops
