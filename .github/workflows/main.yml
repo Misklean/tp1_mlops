@@ -38,9 +38,7 @@ jobs:
 
       # Step 7: Deploy to Remote Server using sshpass
       - name: Connect to Remote Server
-        env:
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-        run: sshpass -p $SSH_PASSWORD ssh ubuntu@20.86.55.5
+        run: sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh ubuntu@20.86.55.5
 
       - name: Deploy to Remote Server
         run: docker pull flotigoulet/tp1_mlops:latest; docker run -t flotigoulet/tp1_mlops
