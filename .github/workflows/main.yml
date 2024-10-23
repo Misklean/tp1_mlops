@@ -1,0 +1,44 @@
+name: CD Pipeline for FastAPI Project
+
+# Trigger the workflow on push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Step 2: Build the Docker image
+      - name: Build Docker Image
+        run: docker compose build fastapi
+
+      # Step 3: Tag the Docker image
+        # Replace 'tagname' with the appropriate tag you want to use.
+      - name: Tag Docker Image
+        run: docker tag fastapi flotigoulet/tp1_mlops:latest
+
+      # Step 4: Log in to Docker Hub
+      - name: Docker Login
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      # Step 5: Push the Docker image to Docker Hub
+      - name: Push Docker Image
+        run: docker push flotigoulet/tp1_mlops:tagname
+
+      # # Step 6: Deploy to Remote Server via SSH
+      # - name: Deploy to Remote Server
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no ubuntu@17.2.2.1 << 'EOF'
+      #       docker compose pull flotigoulet/tp1_mlops:tagname
+      #       docker compose down
+      #       docker compose up -d
+      #     EOF
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
