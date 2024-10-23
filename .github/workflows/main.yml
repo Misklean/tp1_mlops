@@ -22,7 +22,7 @@ jobs:
       # Step 3: Tag the Docker image
         # Replace 'tagname' with the appropriate tag you want to use.
       - name: Tag Docker Image
-        run: docker tag fastapi flotigoulet/tp1_mlops:latest
+        run: docker tag tp1_mlops_ft flotigoulet/tp1_mlops:latest
 
       # Step 4: Log in to Docker Hub
       - name: Docker Login
@@ -30,7 +30,7 @@ jobs:
 
       # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker Image
-        run: docker push flotigoulet/tp1_mlops:tagname
+        run: docker push flotigoulet/tp1_mlops:latest
 
       # # Step 6: Deploy to Remote Server via SSH
       # - name: Deploy to Remote Server
