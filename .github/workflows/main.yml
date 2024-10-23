@@ -40,5 +40,6 @@ jobs:
       - name: Connect to Remote Server
         run: sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ubuntu@20.86.55.5
 
+      # Step 8: Run the image on the Remote Server
       - name: Deploy to Remote Server
-        run: docker pull flotigoulet/tp1_mlops:latest; docker run -i -t flotigoulet/tp1_mlops
+        run: docker pull flotigoulet/tp1_mlops:latest; docker run -d -t flotigoulet/tp1_mlops
