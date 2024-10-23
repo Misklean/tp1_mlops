@@ -40,6 +40,6 @@ jobs:
       - name: Deploy to Remote Server using sshpass
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ubuntu@20.86.55.5 << 'EOF'
-            docker pull flotigoulet/tp1_mlops:latest
+            docker pull flotigoulet/tp1_mlops:latest;
             docker run -p 5462:5462 flotigoulet/tp1_mlops
           EOF
